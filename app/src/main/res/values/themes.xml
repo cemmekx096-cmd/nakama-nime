@@ -13,32 +13,30 @@
         <item name="android:windowLightNavigationBar">false</item>
     </style>
 
-    <!-- Splash Theme -->
     <style name="Theme.Nakama.Splash" parent="Theme.Nakama">
         <item name="android:windowBackground">@color/splash_bg</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 
-    <!-- Dialog Theme -->
     <style name="Theme.Nakama.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog">
         <item name="colorPrimary">@color/nakama_primary</item>
         <item name="android:windowBackground">@color/bg_dark_surface</item>
         <item name="android:textColor">@color/text_primary_dark</item>
     </style>
 
-    <!-- Trust Warning Dialog -->
     <style name="Theme.Nakama.Dialog.Trust" parent="Theme.Nakama.Dialog">
         <item name="colorPrimary">@color/ext_untrusted</item>
     </style>
 
-    <!-- Player Theme -->
     <style name="Theme.Nakama.Player" parent="Theme.Nakama">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@color/bg_black</item>
         <item name="android:keepScreenOn">true</item>
     </style>
 
-    <!-- ✅ Base TextStyle — wajib ada sebelum child style -->
+    <!-- ✅ Base TextStyle root — wajib ada -->
+    <style name="TextStyle" parent="android:Widget" />
+
     <style name="TextStyle.Nakama">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/text_primary_dark</item>
@@ -60,7 +58,9 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
-    <!-- Button Styles -->
+    <!-- ✅ Base ButtonStyle root — wajib ada -->
+    <style name="ButtonStyle" parent="android:Widget" />
+
     <style name="ButtonStyle.Nakama.Primary" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">@color/nakama_primary</item>
         <item name="android:textColor">@color/text_primary_dark</item>
