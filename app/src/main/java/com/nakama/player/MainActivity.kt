@@ -1,7 +1,7 @@
 package com.nakama.player
 
 import android.annotation.SuppressLint
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
 import android.webkit.WebSettings
 import android.webkit.WebView
@@ -81,7 +81,6 @@ class MainActivity : AppCompatActivity() {
             cookieManager = cookieManager,
             onPageStarted = { url ->
                 Timber.d("$TAG: Page started → $url")
-                // Notify JS bahwa halaman mulai load
                 webView.evaluateJavascript(
                     "if(window.onNativePageStarted) onNativePageStarted('$url')",
                     null
@@ -89,6 +88,7 @@ class MainActivity : AppCompatActivity() {
             },
             onPageFinished = { url ->
                 Timber.d("$TAG: Page finished → $url")
+                injectTheme()
                 webView.evaluateJavascript(
                     "if(window.onNativePageFinished) onNativePageFinished('$url')",
                     null
@@ -99,17 +99,6 @@ class MainActivity : AppCompatActivity() {
                 val escaped = error.replace("'", "\\'")
                 webView.evaluateJavascript(
                     "if(window.onNativePageError) onNativePageError('$escaped')",
-                    null
-                )
-            },
-            onPageFinished = { url ->
-                Timber.d("$TAG: Page finished → $url")
-
-                // Inject tema & aksen saat halaman siap
-                injectTheme()
-
-                webView.evaluateJavascript(
-                    "if(window.onNativePageFinished) onNativePageFinished('$url')",
                     null
                 )
             }
