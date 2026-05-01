@@ -10,6 +10,8 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -17,20 +19,10 @@ import com.nakama.player.R
 import com.nakama.player.databinding.FragmentOnboardingStep3Binding
 import timber.log.Timber
 
-/**
- * Step 3 — Request permissions:
- * - Storage (Android < 10)
- * - Notifikasi (Android 13+)
- * - Battery optimization (semua versi)
- */
 class Step3PermissionFragment : Fragment() {
 
     private var _binding: FragmentOnboardingStep3Binding? = null
     private val binding get() = _binding!!
-
-    // ─────────────────────────────────────────
-    // PERMISSION LAUNCHERS
-    // ─────────────────────────────────────────
 
     private val notifPermLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -63,44 +55,33 @@ class Step3PermissionFragment : Fragment() {
 
     private fun setupPermissionItems() {
         // Storage
-        binding.permStorage.apply {
-            findViewById<android.widget.TextView>(R.id.tvPermTitle).text = "Izin penyimpanan"
-            findViewById<android.widget.TextView>(R.id.tvPermDesc).text =
-                "Untuk menyimpan unduhan video."
-            findViewById<android.widget.Button>(R.id.btnGrant).setOnClickListener {
-                requestStoragePermission()
-            }
+        binding.permStorage.findViewById<TextView>(R.id.tvPermTitle).text = "Izin penyimpanan"
+        binding.permStorage.findViewById<TextView>(R.id.tvPermDesc).text =
+            "Untuk menyimpan unduhan video."
+        binding.permStorage.findViewById<Button>(R.id.btnGrant).setOnClickListener {
+            requestStoragePermission()
         }
 
         // Notifikasi
-        binding.permNotification.apply {
-            findViewById<android.widget.TextView>(R.id.tvPermTitle).text = "Izin notifikasi"
-            findViewById<android.widget.TextView>(R.id.tvPermDesc).text =
-                "Untuk notifikasi pembaruan extension."
-            findViewById<android.widget.Button>(R.id.btnGrant).setOnClickListener {
-                requestNotificationPermission()
-            }
+        binding.permNotification.findViewById<TextView>(R.id.tvPermTitle).text = "Izin notifikasi"
+        binding.permNotification.findViewById<TextView>(R.id.tvPermDesc).text =
+            "Untuk notifikasi pembaruan extension."
+        binding.permNotification.findViewById<Button>(R.id.btnGrant).setOnClickListener {
+            requestNotificationPermission()
         }
 
         // Battery
-        binding.permBattery.apply {
-            findViewById<android.widget.TextView>(R.id.tvPermTitle).text =
-                "Penggunaan baterai di latar belakang"
-            findViewById<android.widget.TextView>(R.id.tvPermDesc).text =
-                "Hindari gangguan saat unduh berlangsung lama."
-            findViewById<android.widget.Button>(R.id.btnGrant).setOnClickListener {
-                requestBatteryOptimization()
-            }
+        binding.permBattery.findViewById<TextView>(R.id.tvPermTitle).text =
+            "Penggunaan baterai di latar belakang"
+        binding.permBattery.findViewById<TextView>(R.id.tvPermDesc).text =
+            "Hindari gangguan saat unduh berlangsung lama."
+        binding.permBattery.findViewById<Button>(R.id.btnGrant).setOnClickListener {
+            requestBatteryOptimization()
         }
     }
 
-    // ─────────────────────────────────────────
-    // REQUEST
-    // ─────────────────────────────────────────
-
     private fun requestStoragePermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            // Android 13+ — tidak butuh storage permission untuk internal
             Timber.d("Step3: Android 13+ — storage perm not needed")
         } else {
             storagePermLauncher.launch(arrayOf(
@@ -113,27 +94,18 @@ class Step3PermissionFragment : Fragment() {
     private fun requestNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             notifPermLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-        } else {
-            Timber.d("Step3: Android < 13 — notif perm not needed")
         }
     }
 
     private fun requestBatteryOptimization() {
         val pm = requireContext().getSystemService(PowerManager::class.java)
-        val pkg = requireContext().packageName
-
-        if (!pm.isIgnoringBatteryOptimizations(pkg)) {
-            val intent = Intent(
+        if (!pm.isIgnoringBatteryOptimizations(requireContext().packageName)) {
+            startActivity(Intent(
                 Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
-                Uri.parse("package:$pkg")
-            )
-            startActivity(intent)
+                Uri.parse("package:${requireContext().packageName}")
+            ))
         }
     }
-
-    // ─────────────────────────────────────────
-    // UPDATE UI
-    // ─────────────────────────────────────────
 
     private fun updatePermissionUI() {
         // Storage
@@ -143,12 +115,10 @@ class Step3PermissionFragment : Fragment() {
                 Manifest.permission.READ_EXTERNAL_STORAGE
             ) == android.content.pm.PackageManager.PERMISSION_GRANTED
 
-        binding.permStorage
-            .findViewById<android.widget.Button>(R.id.btnGrant)
-            .apply {
-                isEnabled = !storageGranted
-                text = if (storageGranted) "✓ Diizinkan" else "Izinkan"
-            }
+        binding.permStorage.findViewById<Button>(R.id.btnGrant).apply {
+            isEnabled = !storageGranted
+            text = if (storageGranted) "✓ Diizinkan" else "Izinkan"
+        }
 
         // Notifikasi
         val notifGranted = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
@@ -157,28 +127,23 @@ class Step3PermissionFragment : Fragment() {
                 Manifest.permission.POST_NOTIFICATIONS
             ) == android.content.pm.PackageManager.PERMISSION_GRANTED
 
-        binding.permNotification
-            .findViewById<android.widget.Button>(R.id.btnGrant)
-            .apply {
-                isEnabled = !notifGranted
-                text = if (notifGranted) "✓ Diizinkan" else "Izinkan"
-            }
+        binding.permNotification.findViewById<Button>(R.id.btnGrant).apply {
+            isEnabled = !notifGranted
+            text = if (notifGranted) "✓ Diizinkan" else "Izinkan"
+        }
 
         // Battery
         val pm = requireContext().getSystemService(PowerManager::class.java)
         val batteryIgnored = pm.isIgnoringBatteryOptimizations(requireContext().packageName)
 
-        binding.permBattery
-            .findViewById<android.widget.Button>(R.id.btnGrant)
-            .apply {
-                isEnabled = !batteryIgnored
-                text = if (batteryIgnored) "✓ Diizinkan" else "Izinkan"
-            }
+        binding.permBattery.findViewById<Button>(R.id.btnGrant).apply {
+            isEnabled = !batteryIgnored
+            text = if (batteryIgnored) "✓ Diizinkan" else "Izinkan"
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        // Update UI saat kembali dari Settings
         updatePermissionUI()
     }
 
