@@ -40,6 +40,12 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:windowSoftInputMode="adjustResize" />
 
+         <!-- Tambah setelah MainActivity -->
+        <activity
+            android:name=".ui.OnboardingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>
