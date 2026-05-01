@@ -101,6 +101,17 @@ class MainActivity : AppCompatActivity() {
                     "if(window.onNativePageError) onNativePageError('$escaped')",
                     null
                 )
+            },
+            onPageFinished = { url ->
+                Timber.d("$TAG: Page finished → $url")
+
+                // Inject tema & aksen saat halaman siap
+                injectTheme()
+
+                webView.evaluateJavascript(
+                    "if(window.onNativePageFinished) onNativePageFinished('$url')",
+                    null
+                )
             }
         )
 
@@ -164,6 +175,19 @@ class MainActivity : AppCompatActivity() {
         )
 
         Timber.d("$TAG: All bridges registered")
+    }
+
+    private fun injectTheme() {
+        val prefs = getSharedPreferences("nakama_settings", Context.MODE_PRIVATE)
+        val theme = when (prefs.getInt("theme_mode", 0)) {
+            1    -> "light"
+            2    -> "black"
+            else -> "dark"
+        }
+        val accent = prefs.getString("accent_color", "#6750A4") ?: "#6750A4"
+
+        webView.evaluateJavascript("applyTheme('$theme')", null)
+        webView.evaluateJavascript("applyAccent('$accent')", null)
     }
 
     // ─────────────────────────────────────────

@@ -6,6 +6,7 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+/* ── Tema variables ── */
 :root {
     --color-primary:    #6750A4;
     --color-bg:         #121212;
@@ -13,8 +14,39 @@
     --color-card:       #2A2A2A;
     --color-text:       #FFFFFF;
     --color-text-sub:   #B3B3B3;
+    --color-border:     #333333;
     --color-nav-height: 64px;
     --safe-bottom:      env(safe-area-inset-bottom, 0px);
+}
+
+/* Dark (default) */
+[data-theme="dark"] {
+    --color-bg:       #121212;
+    --color-surface:  #1E1E1E;
+    --color-card:     #2A2A2A;
+    --color-text:     #FFFFFF;
+    --color-text-sub: #B3B3B3;
+    --color-border:   #333333;
+}
+
+/* Light */
+[data-theme="light"] {
+    --color-bg:       #FFFBFE;
+    --color-surface:  #F5F5F5;
+    --color-card:     #FFFFFF;
+    --color-text:     #1C1B1F;
+    --color-text-sub: #49454F;
+    --color-border:   #E0E0E0;
+}
+
+/* Black (AMOLED) */
+[data-theme="black"] {
+    --color-bg:       #000000;
+    --color-surface:  #0D0D0D;
+    --color-card:     #1A1A1A;
+    --color-text:     #FFFFFF;
+    --color-text-sub: #999999;
+    --color-border:   #222222;
 }
 
 html, body {
@@ -25,6 +57,7 @@ html, body {
     font-family: system-ui, -apple-system, sans-serif;
     font-size: 15px;
     overflow: hidden;
+    transition: background 0.2s, color 0.2s;
 }
 
 /* ── App container ── */
@@ -53,6 +86,7 @@ html, body {
     height: 100vh;
     gap: 16px;
     color: var(--color-text-sub);
+    background: var(--color-bg);
 }
 
 .loading-spinner {
@@ -74,7 +108,7 @@ html, body {
     height: calc(var(--color-nav-height) + var(--safe-bottom));
     padding-bottom: var(--safe-bottom);
     background: var(--color-surface);
-    border-top: 1px solid #2A2A2A;
+    border-top: 1px solid var(--color-border);
     position: fixed;
     bottom: 0;
     left: 0;
@@ -101,10 +135,30 @@ html, body {
     color: var(--color-primary);
 }
 
-.nav-icon { font-size: 20px; }
-.nav-label { font-size: 11px; }
+.nav-item.active .nav-icon svg {
+    fill: var(--color-primary);
+}
 
-/* ── Dummy page content ── */
+.nav-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--color-text-sub);
+    transition: fill 0.2s;
+}
+
+.nav-label {
+    font-size: 11px;
+}
+
+/* ── Dummy page ── */
 .dummy-page {
     display: flex;
     flex-direction: column;
@@ -122,7 +176,60 @@ html, body {
     font-size: 20px;
 }
 
-.dummy-page p {
-    font-size: 13px;
-    line-height: 1.6;
+/* ── More menu overlay ── */
+#more-menu {
+    display: none;
+    position: fixed;
+    bottom: calc(var(--color-nav-height) + var(--safe-bottom) + 8px);
+    right: 8px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    overflow: hidden;
+    z-index: 200;
+    min-width: 200px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+#more-menu.open {
+    display: block;
+}
+
+.more-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    color: var(--color-text);
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    transition: background 0.15s;
+}
+
+.more-menu-item:hover,
+.more-menu-item:active {
+    background: var(--color-card);
+}
+
+.more-menu-item svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--color-text-sub);
+    flex-shrink: 0;
+}
+
+/* ── Scrim untuk close more menu ── */
+#menu-scrim {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 199;
+}
+
+#menu-scrim.open {
+    display: block;
 }
