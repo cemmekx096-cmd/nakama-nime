@@ -24,35 +24,37 @@
         <item name="colorPrimary">@color/nakama_primary</item>
         <item name="android:windowBackground">@color/bg_dark_surface</item>
         <item name="android:textColor">@color/text_primary_dark</item>
-        <item name="cornerRadius">16dp</item>
     </style>
 
-    <!-- Extension Trust Warning Dialog -->
+    <!-- Trust Warning Dialog -->
     <style name="Theme.Nakama.Dialog.Trust" parent="Theme.Nakama.Dialog">
         <item name="colorPrimary">@color/ext_untrusted</item>
     </style>
 
-    <!-- Player Theme — fullscreen, no UI chrome -->
+    <!-- Player Theme -->
     <style name="Theme.Nakama.Player" parent="Theme.Nakama">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@color/bg_black</item>
         <item name="android:keepScreenOn">true</item>
     </style>
 
-    <!-- Text Styles -->
-    <style name="TextStyle.Nakama.Title">
-        <item name="android:textSize">16sp</item>
+    <!-- ✅ Base TextStyle — wajib ada sebelum child style -->
+    <style name="TextStyle.Nakama">
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/text_primary_dark</item>
+    </style>
+
+    <style name="TextStyle.Nakama.Title" parent="TextStyle.Nakama">
+        <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
-    <style name="TextStyle.Nakama.Subtitle">
+    <style name="TextStyle.Nakama.Subtitle" parent="TextStyle.Nakama">
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/text_secondary_dark</item>
-        <item name="android:fontFamily">sans-serif</item>
     </style>
 
-    <style name="TextStyle.Nakama.Badge">
+    <style name="TextStyle.Nakama.Badge" parent="TextStyle.Nakama">
         <item name="android:textSize">11sp</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">sans-serif-medium</item>
