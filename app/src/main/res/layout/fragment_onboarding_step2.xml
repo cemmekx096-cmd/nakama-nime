@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/bg_dark_card"
+        app:cardCornerRadius="16dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pilih direktori untuk menyimpan unduhan dan backup Nakama.\n\nSebaiknya gunakan direktori terpisah."
+                android:textColor="@color/text_secondary_dark"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/tvSelectedDir"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Direktori: Belum dipilih"
+                android:textColor="@color/text_secondary_dark"
+                android:textSize="13sp"
+                android:layout_marginTop="12dp"/>
+
+            <Button
+                android:id="@+id/btnPickDir"
+                style="@style/ButtonStyle.Nakama.Outline"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="16dp"
+                android:text="Pilih direktori"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

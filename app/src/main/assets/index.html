@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#121212">
+    <title>Nakama</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Loading screen saat JS belum siap -->
+    <div id="app-loading">
+        <div class="loading-spinner"></div>
+        <p>Memuat Nakama...</p>
+    </div>
+
+    <!-- Container utama app -->
+    <div id="app" style="display:none;">
+
+        <!-- Halaman aktif dirender di sini -->
+        <div id="page-container"></div>
+
+        <!-- Bottom Navigation -->
+        <nav id="bottom-nav">
+            <button class="nav-item active" data-page="home">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label">Beranda</span>
+            </button>
+            <button class="nav-item" data-page="explore">
+                <span class="nav-icon">🔍</span>
+                <span class="nav-label">Jelajahi</span>
+            </button>
+            <button class="nav-item" data-page="history">
+                <span class="nav-icon">🕐</span>
+                <span class="nav-label">Riwayat</span>
+            </button>
+            <button class="nav-item" data-page="settings">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-label">Seting</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- JS — urutan penting -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/cache.js"></script>
+    <script src="js/router.js"></script>
+    <script src="js/extension-manager.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/backup.js"></script>
+    <script src="js/pages/home.js"></script>
+    <script src="js/pages/explore.js"></script>
+    <script src="js/pages/history.js"></script>
+    <script src="js/pages/anime-detail.js"></script>
+    <script src="js/pages/episode-list.js"></script>
+    <script src="js/pages/settings.js"></script>
+    <script src="js/core.js"></script>
+</body>
+</html>

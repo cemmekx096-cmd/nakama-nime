@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base Theme -->
+    <style name="Theme.Nakama" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/nakama_primary</item>
+        <item name="colorPrimaryDark">@color/nakama_primary_dark</item>
+        <item name="colorSecondary">@color/nakama_secondary</item>
+        <item name="android:windowBackground">@color/bg_dark</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:navigationBarColor">@color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+
+    <!-- Splash Theme -->
+    <style name="Theme.Nakama.Splash" parent="Theme.Nakama">
+        <item name="android:windowBackground">@color/splash_bg</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <!-- Dialog Theme -->
+    <style name="Theme.Nakama.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="colorPrimary">@color/nakama_primary</item>
+        <item name="android:windowBackground">@color/bg_dark_surface</item>
+        <item name="android:textColor">@color/text_primary_dark</item>
+        <item name="cornerRadius">16dp</item>
+    </style>
+
+    <!-- Extension Trust Warning Dialog -->
+    <style name="Theme.Nakama.Dialog.Trust" parent="Theme.Nakama.Dialog">
+        <item name="colorPrimary">@color/ext_untrusted</item>
+    </style>
+
+    <!-- Player Theme — fullscreen, no UI chrome -->
+    <style name="Theme.Nakama.Player" parent="Theme.Nakama">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@color/bg_black</item>
+        <item name="android:keepScreenOn">true</item>
+    </style>
+
+    <!-- Text Styles -->
+    <style name="TextStyle.Nakama.Title">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text_primary_dark</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextStyle.Nakama.Subtitle">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/text_secondary_dark</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="TextStyle.Nakama.Badge">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!-- Button Styles -->
+    <style name="ButtonStyle.Nakama.Primary" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/nakama_primary</item>
+        <item name="android:textColor">@color/text_primary_dark</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
+
+    <style name="ButtonStyle.Nakama.Outline" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeColor">@color/nakama_primary</item>
+        <item name="android:textColor">@color/nakama_primary</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
+
+    <style name="ButtonStyle.Nakama.Text" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/nakama_primary</item>
+    </style>
+
+</resources>
