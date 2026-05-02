@@ -56,6 +56,7 @@
         </nav>
     </div>
 
+    <!-- Urutan PENTING -->
     <script src="js/config.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/cache.js"></script>
@@ -63,14 +64,17 @@
     <script src="js/extension-manager.js"></script>
     <script src="js/player.js"></script>
     <script src="js/backup.js"></script>
+    
+    <!-- Pages — home PERTAMA karena dia yang define const Pages = {} -->
     <script src="js/pages/home.js"></script>
     <script src="js/pages/explore.js"></script>
     <script src="js/pages/history.js"></script>
     <script src="js/pages/anime-detail.js"></script>
     <script src="js/pages/episode-list.js"></script>
-    <script src="js/pages/settings.js"></script>
-    <!-- Tambah sebelum core.js -->
     <script src="js/pages/ext-detail.js"></script>
+    <script src="js/pages/settings.js"></script>
+    
+    <!-- Core TERAKHIR — dia yang trigger onAppReady -->
     <script src="js/core.js"></script>
 </body>
 </html>
