@@ -14,3 +14,6 @@ const Config = {
 // Freeze agar tidak bisa diubah
 Object.freeze(Config);
 Object.freeze(Config.cacheTTL);
+// ── Pages registry ────────────────────────────
+// Harus dideklarasikan sebelum semua pages/*.js
+const Pages = {};
