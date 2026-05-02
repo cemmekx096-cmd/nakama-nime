@@ -1,94 +1,106 @@
+// ── Router ─────────────────────────────────────
 const Router = {
-    _current: 'home',
-    _currentTab: 'home',   // track tab aktif
-    _detailStack: [],      // stack HANYA untuk halaman detail (anime-detail, episode-list)
+    _current:    'home',
+    _currentTab: 'home',
+    _detailStack: [],
 
     navigate(page, params = {}) {
-        const tabPages = ['home', 'explore', 'history', 'settings'];
-        const isTab = tabPages.includes(page);
+        const TAB_PAGES = ['home', 'history', 'explore', 'more'];
+        const isTab = TAB_PAGES.includes(page);
 
         if (isTab) {
-            // Pindah tab → reset detail stack, tidak push ke history
             this._detailStack = [];
-            this._current = page;
-            this._currentTab = page;
+            this._current     = page;
+            this._currentTab  = page;
         } else {
-            // Halaman detail → push ke detail stack
-            this._detailStack.push({
-                page: this._current,
-                params: {}
-            });
+            this._detailStack.push({ page: this._current, params: {} });
             this._current = page;
         }
 
         this._render(page, params);
         this._updateNav(page);
-        Log.d('Router', `Navigate → ${page} (tab: ${this._currentTab})`);
+        Log.d('Router', `→ ${page}`);
     },
 
     back() {
-        // 1. Ada detail stack → kembali ke halaman detail sebelumnya
+        // 1. Ada detail stack → pop
         if (this._detailStack.length > 0) {
             const prev = this._detailStack.pop();
             this._current = prev.page;
             this._render(prev.page, prev.params);
             this._updateNav(prev.page);
-            Log.d('Router', `Back → ${prev.page} (detail stack)`);
             return true;
         }
 
-        // 2. Bukan di home → kembali ke home
+        // 2. Bukan home → ke home
         if (this._current !== 'home') {
-            this._current = 'home';
+            this._current    = 'home';
             this._currentTab = 'home';
             this._render('home', {});
             this._updateNav('home');
-            Log.d('Router', 'Back → home');
             return true;
         }
 
-        // 3. Sudah di home → keluar app
-        Log.d('Router', 'Back → exit app');
+        // 3. Sudah di home → keluar
         return false;
     },
 
-    _render(page, params) {
-        const container = document.getElementById('page-container');
-        if (!container) return;
+    _render(page, params = {}) {
+        const c = document.getElementById('page-container');
+        if (!c) return;
 
-        switch (page) {
-            case 'home':         container.innerHTML = Pages.home();      break;
-            case 'explore':      container.innerHTML = Pages.explore();   break;
-            case 'history':      container.innerHTML = Pages.history();   break;
-            case 'settings':     container.innerHTML = Pages.settings();  break;
-            case 'anime-detail': Pages.animeDetail(container, params);    break;
-            case 'episode-list': Pages.episodeList(container, params);    break;
-            default:             container.innerHTML = Pages.home();
+        try {
+            switch (page) {
+                case 'home':            Pages.home(c);                    break;
+                case 'history':         Pages.history(c);                 break;
+                case 'explore':         Pages.explore(c);                 break;
+                case 'more':            Pages.more(c);                    break;
+                case 'anime-detail':    Pages.animeDetail(c, params);     break;
+                case 'episode-list':    Pages.episodeList(c, params);     break;
+                case 'ext-detail':      Pages.extDetail(c, params);       break;
+                case 'settings':        Pages.settings(c);                break;
+                case 'downloads':       Pages.downloads(c);               break;
+                case 'backup':          Pages.backup(c);                  break;
+                case 'about':           Pages.about(c);                   break;
+                default:                Pages.home(c);
+            }
+        } catch(e) {
+            Log.e('Router', `Render error on ${page}: ${e.message}`);
         }
-        container.scrollTop = 0;
+
+        c.scrollTop = 0;
     },
 
     _updateNav(page) {
-        const tabMap = {
-            'home': 'home',
-            'explore': 'explore',
-            'history': 'history',
-            'settings': 'settings',
+        const TAB_MAP = {
+            'home': 'home', 'history': 'history',
+            'explore': 'explore', 'more': 'more',
             'anime-detail': this._currentTab,
-            'episode-list': this._currentTab
+            'episode-list': this._currentTab,
+            'ext-detail':   'explore',
+            'settings':     'more',
+            'downloads':    'more',
+            'backup':       'more',
+            'about':        'more'
         };
 
-        const activeTab = tabMap[page] || this._currentTab;
-
+        const active = TAB_MAP[page] || this._currentTab;
         document.querySelectorAll('.nav-item').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.page === activeTab);
+            btn.classList.toggle('active', btn.dataset.page === active);
         });
-    },
-
-    // Tambah di bagian bawah router.js, sebelum baris terakhir
-    function handleBackButton() {
-        const handled = Router.back();
-        Log.d('Router', `handleBackButton → handled=${handled}`);
-        return handled;
     }
 };
+
+function handleBackButton() {
+    const handled = Router.back();
+    Log.d('Router', `back → ${handled}`);
+    return handled;
+}
+
+// Lifecycle dari Kotlin
+function onAppResume()  { Log.d('App', 'resume'); }
+function onAppPause()   { Log.d('App', 'pause'); }
+function onFullscreenChanged(v) {
+    document.body.classList.toggle('fullscreen', v);
+}
+function onNativePageFinished(url) { Log.d('App', `loaded: ${url}`); }
