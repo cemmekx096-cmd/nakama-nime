@@ -83,5 +83,12 @@ const Router = {
         document.querySelectorAll('.nav-item').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.page === activeTab);
         });
+    },
+
+    // Tambah di bagian bawah router.js, sebelum baris terakhir
+    function handleBackButton() {
+        const handled = Router.back();
+        Log.d('Router', `handleBackButton → handled=${handled}`);
+        return handled;
     }
 };
