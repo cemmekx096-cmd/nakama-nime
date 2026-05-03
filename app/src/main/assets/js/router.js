@@ -62,6 +62,10 @@ const Router = {
                 case 'downloads':       Pages.downloads(c);               break;
                 case 'backup':          Pages.backup(c);                  break;
                 case 'about':           Pages.about(c);                   break;
+                case 'episode-player':  Pages.episodePlayer(c, params);  break;
+                case 'source-browse':   Pages.sourceBrowse(c, params);   break;
+                case 'source-browse': Pages.sourceBrowse(c, params); break;
+
                 default:                Pages.home(c);
             }
         } catch(e) {
@@ -78,6 +82,8 @@ const Router = {
             'anime-detail': this._currentTab,
             'episode-list': this._currentTab,
             'ext-detail':   'explore',
+            'episode-player': this._currentTab,  // ✅ tambah
+            'source-browse':  'explore',         // ✅ tambah
             'settings':     'more',
             'downloads':    'more',
             'backup':       'more',
