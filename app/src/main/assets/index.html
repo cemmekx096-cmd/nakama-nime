@@ -15,70 +15,63 @@
 
     <!-- App -->
     <div id="app" style="display:none;">
-
         <div id="page-container"></div>
 
         <!-- Bottom Nav -->
         <nav id="bottom-nav">
-
-            <!-- Pustaka -->
             <button class="nav-item active" data-page="home">
                 <span class="nav-icon">
                     <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12zM10 9h8v2h-8zm0 3h4v2h-4zm0-6h8v2h-8z"/></svg>
                 </span>
                 <span class="nav-label">Pustaka</span>
             </button>
-
-            <!-- Riwayat -->
             <button class="nav-item" data-page="history">
                 <span class="nav-icon">
                     <svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
                 </span>
                 <span class="nav-label">Riwayat</span>
             </button>
-
-            <!-- Jelajahi -->
             <button class="nav-item" data-page="explore">
                 <span class="nav-icon">
                     <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
                 </span>
                 <span class="nav-label">Jelajahi</span>
             </button>
-
-            <!-- Lainnya -->
             <button class="nav-item" data-page="more">
                 <span class="nav-icon">
                     <svg viewBox="0 0 24 24"><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
                 </span>
                 <span class="nav-label">Lainnya</span>
             </button>
-
         </nav>
     </div>
 
-    <!-- Urutan PENTING -->
+    <!-- ═══ SCRIPTS — URUTAN PENTING ═══ -->
+
+    <!-- 1. Core utilities -->
     <script src="js/config.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/cache.js"></script>
     <script src="js/router.js"></script>
+
+    <!-- 2. Managers -->
     <script src="js/extension-manager.js"></script>
     <script src="js/player.js"></script>
     <script src="js/backup.js"></script>
-    
-    <!-- Pages — home PERTAMA karena dia yang define const Pages = {} -->
+
+    <!-- 3. Pages (Pages object dibuat di config.js) -->
     <script src="js/pages/home.js"></script>
     <script src="js/pages/explore.js"></script>
     <script src="js/pages/history.js"></script>
     <script src="js/pages/anime-detail.js"></script>
     <script src="js/pages/episode-list.js"></script>
     <script src="js/pages/ext-detail.js"></script>
-    <script src="js/pages/settings.js"></script>
-    
-    <!-- Core TERAKHIR — dia yang trigger onAppReady -->
     <script src="js/pages/source-browse.js"></script>
+    <script src="js/pages/settings.js"></script>
     <script src="js/pages/about.js"></script>
-    <script src="js/pages/episode-list.js"></script>
-    <script src="js/backup.js"></script>
+
+    <!-- 4. Core TERAKHIR — trigger onAppReady -->
     <script src="js/core.js"></script>
+
 </body>
 </html>
